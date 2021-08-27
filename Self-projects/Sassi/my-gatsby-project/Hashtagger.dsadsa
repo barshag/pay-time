@@ -1,0 +1,70 @@
+import React from 'react';
+import { Link } from 'gatsby';
+import { Helmet } from 'react-helmet';
+//import { Container } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { headData } from '../mock/data';
+import '../style/main.scss';
+
+
+export class HashTag extends React.Component{
+  state = {
+    Tag1:""
+  }
+
+  handleInputChange = event =>{
+      const target = event.target
+      const value = target.value
+      const name = target.name
+
+      this.setState({
+        [name]: value
+      })
+  
+  }
+
+  handleSubmit = event =>{
+    event.preventDefault()
+    alert(` #${this.state.Tag1}, is a nice Hashtag!`)
+  }
+
+  render(){
+    return (
+              <form onSubmit ={this.handleSubmit}>
+                <label> What is your initial seed's HashTag?</label>
+                <input type="text" 
+                       name="Tag1"
+                       value = {this.state.Tag1}
+                       onChange ={this.handleInputChange}
+                       ></input>
+                <button type = "submit">Submit </button>          
+
+              </form>
+
+
+            )
+  }
+}
+
+
+
+
+export default () => {
+  const { lang } = headData;
+
+  return (
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Hashtagger suggestion's A.I based</title>
+        <html lang={lang || 'en'} />
+        <meta name="description" content="Form" />
+      </Helmet>
+       <h1>Welcome to the new HashTagger(A.I based) tool</h1>
+
+      <Link to = "/"> HOME</Link>
+      <HashTag></HashTag>
+    </>
+  );
+};
